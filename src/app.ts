@@ -38,13 +38,10 @@ export class App {
     }
 
     doneClicked(todo) {
-        console.log('done clicked');
         let index = this.todos.indexOf(todo);
-        console.log(index);
         if (index !== -1) {
             this.todos[index].done = true;
             const json = JSON.stringify(this.todos);
-            console.log(json);
             localStorage.setItem('todos', json);
         }
     }

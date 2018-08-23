@@ -1,19 +1,53 @@
 <template>
-    <div>${name}</div>
-    <div>${description}</div>
-    <button click.trigger="doSomething()">Do Something</button>
-    <form submit.trigger="addTodo()">
-        <input type="text" value.bind="todoDescription" />
-        <button type="submit">Add Todo</button>
-    </form>
-
-    <ul>
-        <li repeat.for="todo of todos">
-            <input type="checkbox" checked.bind="todo.done">
-            <span>
-                ${todo.description}
-            </span>
-            <button click.trigger="removeTodo(todo)">Remove</button>
-        </li>
-    </ul>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-12">
+                <h1 style="text-align: center; margin-bottom: 20px">${name}</h1>
+            </div>
+            <div class="col-7">
+                <input style="width: 100%" type="text" value.bind="todoDescription" />
+            </div>
+            <div class="col-5">
+                <button style="width: 100%" click.trigger="addTodo()">Add Todo</button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-12" style="text-align: center">
+                <ul class="list-group" style="margin-top: 10px">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-3">
+                                <h3>Number</h3>
+                            </div>
+                            <div class="col-3">
+                                <h3>Done</h3>
+                            </div>
+                            <div class="col-3">
+                                <h3>Descripton</h3>
+                            </div>
+                            <div class="col-3">
+                                <h3>Remove</h3>
+                            </div>
+                        </div>
+                    </li>
+                    <li class="list-group-item" style="margin-top: 5px; margin-bottom: 5px;" repeat.for="todo of todos">
+                        <div class="row">
+                            <div class="col-3">
+                                ${$index + 1}
+                            </div>
+                            <div class="col-3">
+                                <input type="checkbox" change.delegate="doneClicked(todo)" checked.bind="todo.done">
+                            </div>
+                            <div class="col-3">
+                                ${todo.description}
+                            </div>
+                            <div class="col-3">
+                                <button style="width: 100%" click.trigger="removeTodo(todo)">Remove</button>
+                            </div>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
 </template>

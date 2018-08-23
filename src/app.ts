@@ -2,14 +2,16 @@ import { Todo } from "./todo";
 
 export class App {
     name;
-    description;
     todos;
     todoDescription;
 
     constructor() {
-        this.name = 'app 1';
-        this.description = 'app 1 description'
-        this.todos = [];
+        this.name = 'Todo App';
+        if (localStorage.getItem('todos')) {
+            this.todos = JSON.parse(localStorage.getItem('todos'));
+        } else {
+            this.todos = [];
+        }
         this.todoDescription = '';
     }
 
@@ -21,7 +23,8 @@ export class App {
         if (this.todoDescription) {
             this.todos.push(new Todo(this.todoDescription));
             this.todoDescription = '';
-            console.log(this.todos);
+            const json = JSON.stringify(this.todos);
+            localStorage.setItem('todos', json);
         }
     }
 
@@ -29,7 +32,20 @@ export class App {
         let index = this.todos.indexOf(todo);
         if (index !== -1) {
             this.todos.splice(index, 1);
-            console.log(this.todos);
+            const json = JSON.stringify(this.todos);
+            localStorage.setItem('todos', json);
+        }
+    }
+
+    doneClicked(todo) {
+        console.log('done clicked');
+        let index = this.todos.indexOf(todo);
+        console.log(index);
+        if (index !== -1) {
+            this.todos[index].done = true;
+            const json = JSON.stringify(this.todos);
+            console.log(json);
+            localStorage.setItem('todos', json);
         }
     }
 }
